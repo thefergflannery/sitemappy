@@ -26,6 +26,7 @@ export async function GET(request: Request) {
     const pages: string[] = [];
     const brokenLinks: string[] = [];
     let total = 0;
+    const baseUrl = url; // Store the base URL as a string
 
     // Function to check if URL is a main navigation page
     function isMainPageUrl(url: string): boolean {
@@ -149,7 +150,7 @@ export async function GET(request: Request) {
           for (const link of mainNavLinks) {
             try {
               const absoluteUrl = new URL(link, currentUrl).toString();
-              if (absoluteUrl.startsWith(url) && 
+              if (absoluteUrl.startsWith(baseUrl) && 
                   !visited.has(absoluteUrl) && 
                   isMainPageUrl(absoluteUrl)) {
                 // Only crawl one level deep
